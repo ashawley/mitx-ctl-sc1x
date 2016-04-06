@@ -34,7 +34,8 @@
 
 package org.edx.mitx.ctl.sc1x
 
-import breeze.linalg._
+import breeze.linalg.DenseMatrix
+import breeze.linalg.DenseVector
 import breeze.stats.distributions.Gaussian
 import breeze.stats.distributions.Poisson
 
@@ -144,7 +145,7 @@ class Week1Spec extends Specification {
     val profitSorted: Array[Double] =
       profit.toArray.sorted.reverse
     val profitAccumPct: DenseVector[Double] =
-      accumulate(DenseVector(profitSorted) :/ sum(profit))
+      breeze.linalg.accumulate(DenseVector(profitSorted) :/ breeze.linalg.sum(profit))
     val profitAndPct: Array[(Double, Double)] =
       profitSorted.zip(profitAccumPct.toArray)
 
@@ -171,7 +172,7 @@ class Week1Spec extends Specification {
    */
   "W1PP3P1" in {
     new Rings {
-      min(group("A")) must be ~(11889.9 +/- 0.1)
+      breeze.linalg.min(group("A")) must be ~(11889.9 +/- 0.1)
     }
   }
 
